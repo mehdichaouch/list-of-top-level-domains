@@ -1,0 +1,36 @@
+name: 🏋️ Fetch latest TLDs
+
+on:
+  workflow_dispatch:
+  push:
+  schedule:
+    - cron: '0 8 * * *'
+
+jobs:
+  tlds:
+    name: 🏋️ Fetch latest TLDs
+    runs-on: ubuntu-latest
+    steps:
+      - name: ⬇ Checkout
+        uses: actions/checkout@v2
+
+      - name: 🪢 Fetch latest TLDs
+        id: tlds
+        run: |
+          mkdir -p data && cd $_
+          curl -sSo tlds.txt https://data.iana.org/TLD/tlds-alpha-by-domain.txt
+          echo ::set-output name=COMMIT_MESSAGE::$(head -n 1 tlds.txt)
+          sed -i -e '1,1d' tlds.txt
+          jq -R -n -c '[inputs|split("\n")] |add' tlds.txt > tlds.min.json
+          jq . tlds.min.json > tlds.json
+
+      - name: 🤖 Commit changes
+        uses: stefanzweifel/git-auto-commit-action@v4
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        with:
+          commit_message: 🤖 Auto-update ${{ steps.tlds.outputs.COMMIT_MESSAGE }}
+          branch: main
+          commit_user_name: 🤖 R2D2
+          commit_user_email: actions@github.com
+          commit_author: 🤖 R2D2 <actions@github.com>
