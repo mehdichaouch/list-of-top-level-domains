@@ -11,15 +11,16 @@
 - Text
 - JSON
 - JSON minified
+- YAML
 
 ## ToDo
 
-Add new format:
-- YAML
-- XML
-- HTML
-- CSV
-- PHP
+- Add new format:
+  - XML
+  - HTML
+  - CSV
+  - PHP
+- Add [IANA](https://www.iana.org/domains/root/db) Root Zone Database info
 
 ## Authors
 
