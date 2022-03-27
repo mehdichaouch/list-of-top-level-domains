@@ -18,11 +18,11 @@ jobs:
         id: tlds
         run: |
           mkdir -p data && cd $_
-          curl -sSo tlds.txt https://data.iana.org/TLD/tlds-alpha-by-domain.txt
-          echo ::set-output name=COMMIT_MESSAGE::$(head -n 1 tlds.txt)
-          sed -i -e '1,1d' tlds.txt
-          jq -R -n -c '[inputs|split("\n")] |add' tlds.txt > tlds.min.json
-          jq . tlds.min.json > tlds.json
+          curl -sSo tld-list.txt https://data.iana.org/TLD/tlds-alpha-by-domain.txt
+          echo ::set-output name=COMMIT_MESSAGE::$(head -n 1 tld-list.txt)
+          sed -i -e '1,1d' tld-list.txt
+          jq -R -n -c '[inputs|split("\n")] |add' tld-list.txt > tld-list.min.json
+          jq . tld-list.min.json > tld-list.json
 
       - name: 🤖 Commit changes
         uses: stefanzweifel/git-auto-commit-action@v4
