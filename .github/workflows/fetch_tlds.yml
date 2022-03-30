@@ -25,7 +25,7 @@ jobs:
           jq . tld-list.min.json > tld-list.json
 
       - name: 🔧 Generate YAML file version
-        uses: mikefarah/yq@v4.23.1
+        uses: mikefarah/yq@v4.24.2
         with:
           cmd: cd data && yq -P '.' tld-list.json > tld-list.yml
 
