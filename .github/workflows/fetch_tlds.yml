@@ -12,20 +12,33 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: ⬇ Checkout
-        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4
+        uses: actions/checkout@v4
 
       - name: 🪢 Fetch latest TLDs
-        id: tlds
         run: |
           mkdir -p data && cd $_
           curl -sSo tld-list.txt https://data.iana.org/TLD/tlds-alpha-by-domain.txt
-          echo ::set-output name=COMMIT_MESSAGE::$(head -n 1 tld-list.txt)
-          sed -i -e '1,1d' tld-list.txt
-          jq -R -n -c '[inputs|split("\n")] |add' tld-list.txt > tld-list.min.json
+
+      - name: 📝 Generate commit message
+        id: tlds
+        run: |
+          cd data && echo ::set-output name=COMMIT_MESSAGE::$(head -n 1 tld-list.txt)
+
+      - name: 🔧 Generate txt file (remove first line of fetched txt file)
+        run: |
+          cd data && sed -i -e '1,1d' tld-list.txt
+
+      - name: 🔧 Generate CSV file
+        run: |
+          cd data && cp tld-list.txt tld-list.csv
+
+      - name: 🔧 Generate JSON file
+        run: |
+          cd data && jq -R -n -c '[inputs|split("\n")] |add' tld-list.txt > tld-list.min.json
           jq . tld-list.min.json > tld-list.json
 
-      - name: 🔧 Generate YAML file version
-        uses: mikefarah/yq@v4.24.4
+      - name: 🔧 Generate YAML file
+        uses: mikefarah/yq@master
         with:
           cmd: cd data && yq -P '.' tld-list.json > tld-list.yml
 

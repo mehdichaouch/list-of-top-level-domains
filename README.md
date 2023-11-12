@@ -8,6 +8,7 @@
 
 ## Formats available
 
+- CSV
 - Text
 - JSON
 - JSON minified
@@ -16,11 +17,10 @@
 ## ToDo
 
 - Add new format:
-  - XML
   - HTML
-  - CSV
   - PHP
-- Add [IANA](https://www.iana.org/domains/root/db) Root Zone Database info
+  - XML
+- Add info from [IANA Root Zone Database](https://www.iana.org/domains/root/db)
 
 ## Authors
 
