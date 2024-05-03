@@ -1,5 +1,6 @@
 <h1 align="center"><a href="https://github.com/mehdichaouch/list-of-top-level-domains">List of Top-Level Domains (TLDs)</a></h1>
-<p align="center">
+<p align="center">  
+  <a href="https://github.com/mehdichaouch/list-of-top-level-domains/actions/workflows/fetch_tlds.yml"><img src="https://github.com/mehdichaouch/list-of-top-level-domains/actions/workflows/fetch_tlds.yml/badge.svg"></a>
   <a href="https://makeapullrequest.com"><img src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg"></a>
   <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/License-MIT-blue.svg"></a>
 </p>
