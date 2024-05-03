@@ -18,11 +18,12 @@ jobs:
         run: |
           mkdir -p data && cd $_
           curl -sSo tld-list.txt https://data.iana.org/TLD/tlds-alpha-by-domain.txt
+          head tld-list.txt
 
       - name: 📝 Generate commit message
         id: tlds
         run: |
-          cd data && echo ::set-output name=COMMIT_MESSAGE::$(head -n 1 tld-list.txt)
+          cd data && echo "COMMIT_MESSAGE=$(head -n 1 tld-list.txt)" >> $GITHUB_OUTPUT
 
       - name: 🔧 Generate txt file (remove first line of fetched txt file)
         run: |
