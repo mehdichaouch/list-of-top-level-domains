@@ -44,7 +44,7 @@ jobs:
           cmd: cd data && yq -P '.' tld-list.json > tld-list.yml
 
       - name: 🤖 Commit changes
-        uses: stefanzweifel/git-auto-commit-action@v6
+        uses: stefanzweifel/git-auto-commit-action@v7
         env:
           GITHUB_TOKEN: ${{ github.token }}
         with:
