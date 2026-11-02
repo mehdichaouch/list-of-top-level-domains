@@ -10,7 +10,15 @@ jobs:
   tlds:
     name: 🏋️ Fetch latest TLDs
     runs-on: ubuntu-latest
+    permissions:
+      actions: write
+      contents: write
     steps:
+      - name: ♻️ Keep schedule active
+        run: gh api -X PUT repos/${{ github.repository }}/actions/workflows/fetch_tlds.yml/enable
+        env:
+          GH_TOKEN: ${{ github.token }}
+
       - name: ⬇️ Checkout
         uses: actions/checkout@v7
 
